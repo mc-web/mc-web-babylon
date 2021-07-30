@@ -1,20 +1,33 @@
+import { Person } from "./Person.js";
+/**
+ * 控制所有的东西
+ */
 class Scene {
-  constructor(engine) {
-    const scene = Scene.createScene(engine);
+    constructor(canvas, engine) {
+        const scene = Scene.createScene(engine);
+        const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2, 3, BABYLON.Vector3.Zero());
+        const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0));
 
-    const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 3, new BABYLON.Vector3(0, 0, 0));
+        this.canvas = canvas;
+        this.scene = scene;
+        this.camera = camera;
+        this.light = light;
 
-    const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0));
+        const box = BABYLON.MeshBuilder.CreateBox("box", {});
+        return scene;
+    }
 
-    const box = BABYLON.MeshBuilder.CreateBox("box", {});
+    addPerson(options) {
+        this.person = new Person(this.canvas, this.camera, options);
+    }
 
+    render() {
+        this.scene.render();
+    }
 
-    return scene;
-  }
-
-  static createScene(engine) {
-    return new BABYLON.Scene(engine);
-  }
+    static createScene(engine) {
+        return new BABYLON.Scene(engine);
+    }
 }
 
 export { Scene };
