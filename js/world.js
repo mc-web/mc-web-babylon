@@ -2,11 +2,12 @@ import { Person } from "./Person.js";
 /**
  * 控制所有的东西
  */
-class Scene {
+class World {
     constructor(canvas, engine) {
-        const scene = Scene.createScene(engine);
-        const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2, 3, BABYLON.Vector3.Zero());
-        const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0));
+        const scene = World.createScene(engine);
+        const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 0, -5), scene);
+        camera.setTarget(BABYLON.Vector3.Zero());
+        const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
 
         this.canvas = canvas;
         this.scene = scene;
@@ -14,14 +15,15 @@ class Scene {
         this.light = light;
 
         const box = BABYLON.MeshBuilder.CreateBox("box", {});
-        return scene;
+        this.addPerson();
     }
 
     addPerson(options) {
         this.person = new Person(this.canvas, this.camera, options);
     }
 
-    render() {
+    update() {
+        this.person.update();
         this.scene.render();
     }
 
@@ -30,4 +32,4 @@ class Scene {
     }
 }
 
-export { Scene };
+export { World };

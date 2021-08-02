@@ -1,12 +1,12 @@
-import { Scene } from "./scene.js";
+import { World } from "./world.js";
 
 const canvas = document.getElementById("canvas");
 
 const engine = new BABYLON.Engine(canvas);
-const scene = new Scene(canvas, engine);
+const world = new World(canvas, engine);
 
 engine.runRenderLoop(() => {
-    scene.render();
+    world.update();
 });
 
 window.addEventListener("resize", () => {
