@@ -1,4 +1,4 @@
-import { ImprovedNoise as improved_noise } from "./ImprovedNoise.js";
+import { ImprovedNoise as improved_noise } from './ImprovedNoise.js';
 
 function generateHeight(width, height) {
   let data = [], perlin = new improved_noise(),

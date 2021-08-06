@@ -5,8 +5,8 @@ class Person {
 
         this.rotation_x = 0;
         this.rotation_y = 0;
-        this.sensitive_x = 0.1;
-        this.sensitive_y = 0.1;
+        this.sensitive_x = 0.3;
+        this.sensitive_y = 0.3;
 
 
         this.canvas = canvas;
@@ -15,11 +15,11 @@ class Person {
     }
 
     initListeners() {
-        document.addEventListener("pointerlockchange", (e) => {
+        document.addEventListener('pointerlockchange', (e) => {
             this.pointer_locked = !this.pointer_locked;
         });
 
-        this.canvas.addEventListener("click", (e) => {
+        this.canvas.addEventListener('click', (e) => {
             if (!this.pointer_locked) {
                 if (this.canvas.requestPointerLock) {
                     this.canvas.requestPointerLock();
@@ -28,16 +28,26 @@ class Person {
                 } else if (this.canvas.mozRequestPointerLock) {
                     this.canvas.mozRequestPointerLock();
                 } else {
-                    console.warn("Pointer Lock is not supported.");
+                    console.warn('Pointer Lock is not supported.');
                 }
             }
         });
 
-        this.canvas.addEventListener("mousemove", (e) => {
+        this.canvas.addEventListener('mousemove', (e) => {
             if (this.pointer_locked) {
                 this.rotation_x += e.movementY / this.canvas.clientHeight * Math.PI * 2 * this.sensitive_y;
                 this.rotation_y += e.movementX / this.canvas.clientWidth * Math.PI * 2 * this.sensitive_x;
             }
+        });
+
+        let enabled_keys = ['w', 's', 'a', 'd'];
+        this.canvas.addEventListener('keydown', (e) => {
+            if ()
+            console.log(e);
+        });
+
+        this.canvas.addEventListener('keyup', (e) => {
+            console.log(e);
         });
     }
 
